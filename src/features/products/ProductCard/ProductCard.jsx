@@ -22,10 +22,6 @@ export function TarjetaProducto({ producto }) {
   const sinStock = stockDisponible <= 0
   const cantidadMaximaEnCarrito = (articuloEnCarrito?.cantidad ?? 0) >= stockDisponible
   const rutaDeRetorno = `${ubicacion.pathname}${ubicacion.search}`
-  const destinoDetalle = {
-    pathname: RUTAS.producto(producto.id),
-    state: { rutaDeRetorno },
-  }
 
   const manejarAgregar = () => {
     if (sinStock || cantidadMaximaEnCarrito) {
@@ -38,7 +34,11 @@ export function TarjetaProducto({ producto }) {
 
   return (
     <article className={estilos.tarjeta}>
-      <Link to={destinoDetalle} className={estilos.multimedia}>
+      <Link
+        to={RUTAS.producto(producto.id)}
+        state={{ rutaDeRetorno }}
+        className={estilos.multimedia}
+      >
         <ImagenPerezosa
           origen={producto.imagen}
           textoAlternativo={producto.nombre}
@@ -52,7 +52,9 @@ export function TarjetaProducto({ producto }) {
 
       <div className={estilos.cuerpo}>
         <h3 className={estilos.nombre}>
-          <Link to={destinoDetalle}>{producto.nombre}</Link>
+          <Link to={RUTAS.producto(producto.id)} state={{ rutaDeRetorno }}>
+            {producto.nombre}
+          </Link>
         </h3>
 
         <div className={estilos.pie}>

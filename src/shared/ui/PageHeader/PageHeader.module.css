@@ -1,0 +1,32 @@
+.encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--espacio-4);
+  margin-bottom: var(--espacio-6);
+}
+
+.titulo {
+  font-size: var(--texto-titulo);
+}
+
+.descripcion {
+  margin-top: var(--espacio-2);
+  max-width: 56ch;
+  color: var(--color-gris);
+}
+
+@media (max-width: 560px) {
+  .encabezado {
+    margin-bottom: var(--espacio-4);
+  }
+
+  .descripcion {
+    font-size: var(--texto-chico);
+  }
+
+  .titulo {
+    font-size: clamp(1.65rem, 1.35rem + 1.5vw, 2rem);
+  }
+}

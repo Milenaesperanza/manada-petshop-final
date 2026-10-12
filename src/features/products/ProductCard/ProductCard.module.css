@@ -1,0 +1,152 @@
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: var(--borde);
+  border-radius: var(--radio-grande);
+  background: var(--color-marfil);
+  transition:
+    transform var(--transicion),
+    box-shadow var(--transicion);
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-mediana);
+}
+
+.multimedia {
+  position: relative;
+  display: block;
+}
+
+.insignia {
+  position: absolute;
+  top: var(--espacio-3);
+  left: var(--espacio-3);
+}
+
+.cuerpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--espacio-4);
+  padding: var(--espacio-4);
+}
+
+.nombre {
+  font-size: var(--texto-grande);
+  line-height: 1.25;
+}
+
+.nombre a:hover {
+  color: var(--color-arcilla-oscuro);
+}
+
+.pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-2);
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.precio {
+  font-family: var(--fuente-titulos);
+  font-size: var(--texto-grande);
+  font-weight: 700;
+}
+
+@media (min-width: 700px) and (max-width: 1024px) {
+  .tarjeta {
+    border-radius: var(--radio-mediano);
+  }
+
+  .insignia {
+    top: var(--espacio-2);
+    left: var(--espacio-2);
+    padding: 0.2rem 0.45rem;
+    font-size: 0.68rem;
+  }
+
+  .cuerpo {
+    gap: var(--espacio-2);
+    padding: 0.7rem;
+  }
+
+  .nombre {
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .nombre a {
+    display: block;
+    overflow-wrap: anywhere;
+  }
+
+  .pie {
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: var(--espacio-1);
+  }
+
+  .precio {
+    flex-shrink: 0;
+    font-size: 0.95rem;
+  }
+
+  .pie :global(button) {
+    min-width: 0;
+    flex-shrink: 1;
+    gap: 0.2rem;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .tarjeta {
+    border-radius: var(--radio-mediano);
+  }
+
+  .insignia {
+    top: var(--espacio-2);
+    left: var(--espacio-2);
+  }
+
+  .cuerpo {
+    gap: var(--espacio-3);
+    padding: var(--espacio-3);
+  }
+
+  .nombre {
+    font-size: var(--texto-chico);
+    line-height: 1.2;
+  }
+
+  .nombre a {
+    display: block;
+    overflow-wrap: anywhere;
+  }
+
+  .pie {
+    align-items: flex-end;
+    gap: var(--espacio-1);
+    flex-wrap: nowrap;
+  }
+
+  .precio {
+    flex-shrink: 0;
+    font-size: var(--texto-base);
+  }
+
+  .pie :global(button) {
+    min-width: 0;
+    flex-shrink: 0;
+    gap: 0.2rem;
+    padding: 0.48rem 0.45rem;
+    font-size: 0.68rem;
+  }
+}

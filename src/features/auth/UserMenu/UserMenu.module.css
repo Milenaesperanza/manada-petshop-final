@@ -1,0 +1,98 @@
+.disparador {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  max-width: 180px;
+  padding: 0.3rem 0.8rem 0.3rem 0.4rem;
+  border-radius: var(--radio-pildora);
+  font-family: var(--fuente-titulos);
+  font-weight: 500;
+  color: var(--color-tinta);
+  transition: background var(--transicion);
+}
+
+.disparador:hover,
+.disparador[data-state='open'] {
+  background: var(--color-avena);
+}
+
+.avatar {
+  flex-shrink: 0;
+  font-size: 1.9rem;
+  color: var(--color-arcilla);
+}
+
+.etiqueta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.marcador {
+  width: 100px;
+  height: 36px;
+  border-radius: var(--radio-pildora);
+  background: var(--color-avena);
+  opacity: 0.6;
+}
+
+/* Sólo ícono en pantallas muy chicas */
+@media (max-width: 480px) {
+  .etiqueta,
+  .marcador {
+    display: none;
+  }
+
+  .disparador {
+    padding: 0.3rem;
+  }
+}
+
+/* Contenido del dropdown (Radix lo monta en un portal) */
+.contenido {
+  z-index: var(--z-panel);
+  min-width: 220px;
+  padding: var(--espacio-2);
+  border: var(--borde);
+  border-radius: var(--radio-mediano);
+  background: var(--color-marfil);
+  box-shadow: var(--sombra-grande);
+  animation: emerger 160ms var(--suavizado);
+}
+
+.correo {
+  padding: var(--espacio-2) var(--espacio-3);
+  font-size: var(--texto-minimo);
+  color: var(--color-gris);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.elemento {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: 0.6rem var(--espacio-3);
+  border-radius: var(--radio-chico);
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.elemento[data-highlighted] {
+  background: var(--color-arcilla-suave);
+  color: var(--color-arcilla-oscuro);
+}
+
+.separador {
+  height: 1.5px;
+  margin: var(--espacio-1) 0;
+  background: var(--color-avena);
+}
+
+@keyframes emerger {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+}

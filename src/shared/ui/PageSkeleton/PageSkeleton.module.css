@@ -1,0 +1,9 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+}
+
+.bloqueCarga {
+  margin-top: var(--espacio-5);
+}

@@ -1,0 +1,218 @@
+.barraHerramientas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-4);
+  margin-bottom: var(--espacio-5);
+}
+
+.filtro {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  font-size: var(--texto-chico);
+  color: var(--color-gris);
+}
+
+.filtro select {
+  padding: 0.5rem 2.2rem 0.5rem 1rem;
+  border: var(--borde);
+  border-radius: var(--radio-pildora);
+  background: var(--color-marfil);
+  color: var(--color-tinta);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.solapas {
+  display: none;
+}
+
+.solapa {
+  padding: 0.55rem 1.2rem;
+  border: var(--borde);
+  border-radius: var(--radio-pildora);
+  background: var(--color-marfil);
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  transition:
+    background var(--transicion),
+    border-color var(--transicion),
+    color var(--transicion);
+}
+
+.solapa:hover {
+  border-color: var(--color-arcilla);
+}
+
+.activo {
+  border-color: var(--color-arcilla);
+  background: var(--color-arcilla);
+  color: var(--color-marfil);
+}
+
+.orden {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  font-size: var(--texto-chico);
+  color: var(--color-gris);
+}
+
+.orden select {
+  padding: 0.5rem 1rem;
+  border: var(--borde);
+  border-radius: var(--radio-pildora);
+  background: var(--color-marfil);
+  color: var(--color-tinta);
+  cursor: pointer;
+}
+
+@media (min-width: 561px) and (max-width: 860px) {
+  .barraHerramientas {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: var(--espacio-3);
+  }
+
+  .filtro,
+  .orden {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: initial;
+    gap: var(--espacio-1);
+  }
+
+  .filtro span,
+  .orden span {
+    white-space: nowrap;
+  }
+
+  .filtro select,
+  .orden select {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .barraHerramientas {
+    align-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espacio-3);
+  }
+
+  .filtro,
+  .orden {
+    justify-content: space-between;
+  }
+
+  .filtro select,
+  .orden select {
+    min-width: 0;
+    width: 100%;
+    max-width: none;
+    padding: 0.42rem 0.55rem;
+    font-size: 0.72rem;
+  }
+
+  .filtro,
+  .orden {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--espacio-1);
+  }
+
+  .orden {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .filtro span,
+  .orden span {
+    font-size: 0.68rem;
+    overflow-wrap: anywhere;
+  }
+
+  .orden select {
+    width: auto;
+    flex: 1;
+    margin-left: var(--espacio-2);
+  }
+
+  .barraHerramientas {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--espacio-2);
+  }
+
+  .filtro,
+  .orden {
+    grid-column: auto;
+    min-width: 0;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: initial;
+  }
+
+  .filtro span,
+  .orden span {
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .filtro select,
+  .orden select {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    padding-inline: 0.35rem;
+    font-size: 0.66rem;
+  }
+
+  .barraHerramientas > .filtro:first-child select option:nth-child(2) {
+    display: none;
+  }
+}
+
+.paginacion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-4);
+  margin-top: var(--espacio-6);
+}
+
+.botonPagina {
+  padding: 0.6rem 1rem;
+  border: var(--borde);
+  border-radius: var(--radio-pildora);
+  background: var(--color-marfil);
+  color: var(--color-tinta);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.botonPagina:hover:not(:disabled) {
+  border-color: var(--color-arcilla);
+}
+
+.botonPagina:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.indicadorPagina {
+  color: var(--color-gris);
+  font-size: var(--texto-chico);
+  font-weight: 700;
+}

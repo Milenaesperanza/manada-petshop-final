@@ -1,0 +1,45 @@
+.logotipo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  font-family: var(--fuente-titulos);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-tinta);
+}
+
+.isotipo {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radio-chico);
+  background: var(--color-arcilla);
+  color: var(--color-marfil);
+  font-size: var(--texto-grande);
+  transition: transform var(--transicion);
+}
+
+.logotipo:hover .isotipo {
+  transform: rotate(-12deg) scale(1.06);
+}
+
+.acento {
+  margin-left: 0.2em;
+  color: var(--color-arcilla);
+}
+
+.claro {
+  color: var(--color-marfil);
+}
+
+.claro .acento {
+  color: var(--color-arcilla);
+}
+
+@media (max-width: 380px) {
+  .nombre {
+    display: none;
+  }
+}

@@ -1,0 +1,54 @@
+.selector {
+  display: inline-flex;
+  align-items: center;
+  border: var(--borde);
+  border-radius: var(--radio-pildora);
+  background: var(--color-marfil);
+}
+
+.control {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--color-pizarra);
+  transition:
+    background var(--transicion),
+    color var(--transicion);
+}
+
+.control:hover:not(:disabled) {
+  background: var(--color-arcilla-suave);
+  color: var(--color-arcilla-oscuro);
+}
+
+.control:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.valor {
+  min-width: 2ch;
+  text-align: center;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+}
+
+.mediano .control {
+  width: 40px;
+  height: 40px;
+}
+
+.mediano .valor {
+  min-width: 2.5rem;
+}
+
+.chico .control {
+  width: 30px;
+  height: 30px;
+  font-size: var(--texto-chico);
+}
+
+.chico .valor {
+  min-width: 2rem;
+  font-size: var(--texto-chico);
+}

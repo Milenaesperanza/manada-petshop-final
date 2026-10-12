@@ -1,0 +1,49 @@
+.cinta {
+  margin-top: var(--espacio-4);
+  overflow: hidden;
+  background: var(--color-arcilla);
+  color: var(--color-marfil);
+  transform: rotate(-1deg) scale(1.02);
+  box-shadow: var(--sombra-chica);
+}
+
+.pista {
+  display: flex;
+  width: max-content;
+  animation: desplazar 32s linear infinite;
+}
+
+.cinta:hover .pista {
+  animation-play-state: paused;
+}
+
+.grupo {
+  display: flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.elemento {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-5);
+  padding: var(--espacio-3) var(--espacio-5) var(--espacio-3) 0;
+  margin-left: var(--espacio-5);
+  font-family: var(--fuente-titulos);
+  font-size: clamp(1.2rem, 1rem + 1vw, 1.8rem);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.icono {
+  font-size: 1.1em;
+  opacity: 0.85;
+}
+
+@keyframes desplazar {
+  to {
+    transform: translateX(-50%);
+  }
+}

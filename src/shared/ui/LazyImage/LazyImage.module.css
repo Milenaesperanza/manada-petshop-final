@@ -1,0 +1,65 @@
+.marco {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--tinte);
+}
+
+.arcilla {
+  --tinte: var(--color-arcilla-suave);
+  --tinte-icono: var(--color-arcilla);
+}
+
+.cielo {
+  --tinte: var(--color-cielo-suave);
+  --tinte-icono: var(--color-cielo);
+}
+
+.marcador {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.brillo {
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgb(250 249 245 / 60%) 50%,
+    transparent 70%
+  );
+  background-size: 250% 100%;
+  animation: brillo 1.4s ease-in-out infinite;
+}
+
+.icono {
+  width: 34%;
+  height: 34%;
+  color: var(--tinte-icono);
+  opacity: 0.55;
+}
+
+.imagen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 300ms var(--suavizado);
+}
+
+.visible {
+  opacity: 1;
+}
+
+@keyframes brillo {
+  from {
+    background-position: 150% 0;
+  }
+
+  to {
+    background-position: -50% 0;
+  }
+}

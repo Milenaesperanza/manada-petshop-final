@@ -1,0 +1,95 @@
+/* ==========================================================================
+   Variables de diseño — paleta Claude (arcilla, crema y tinta) + escalas de UI.
+   Todo componente debe consumir estas variables, nunca valores sueltos.
+   ========================================================================== */
+
+:root {
+  /* Marca */
+  --color-arcilla: #d97757;
+  --color-arcilla-oscuro: #c6613f;
+  --color-arcilla-suave: #f6e0d5;
+
+  /* Superficies */
+  --color-marfil: #faf9f5;
+  --color-crema: #f0eee6;
+  --color-avena: #e3dacc;
+
+  /* Texto */
+  --color-tinta: #141413;
+  --color-pizarra: #3d3d3a;
+  --color-gris: #6f6e68;
+  --color-nube: #b0aea5;
+
+  /* Acentos (categorías y estados) */
+  --color-cielo: #6a9bcc;
+  --color-cielo-suave: #dde8f3;
+  --color-cielo-oscuro: #3f6a96;
+  --color-oliva: #788c5d;
+  --color-oliva-suave: #e2e8d8;
+  --color-oliva-oscuro: #566a3c;
+  --color-kraft: #8b5d38;
+  --color-kraft-suave: #f1e1d2;
+  --color-peligro: #bf4d43;
+  --color-peligro-suave: #f4d9d5;
+
+  /* Tipografía */
+  --fuente-titulos: 'Fredoka', 'Nunito', system-ui, sans-serif;
+  --fuente-cuerpo: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --texto-minimo: 0.78rem;
+  --texto-chico: 0.9rem;
+  --texto-base: 1rem;
+  --texto-grande: 1.2rem;
+  --texto-icono: 1.5rem;
+  --texto-muy-grande: 1.6rem;
+  --texto-titulo: clamp(1.9rem, 1.4rem + 2vw, 2.8rem);
+  --texto-portada: clamp(2.6rem, 1.6rem + 4vw, 4.6rem);
+
+  /* Espaciado */
+  --espacio-1: 0.25rem;
+  --espacio-2: 0.5rem;
+  --espacio-3: 0.75rem;
+  --espacio-4: 1rem;
+  --espacio-5: 1.5rem;
+  --espacio-6: 2rem;
+  --espacio-7: 3rem;
+  --espacio-8: 4.5rem;
+  --espacio-9: 6rem;
+
+  /* Formas */
+  --radio-chico: 10px;
+  --radio-mediano: 16px;
+  --radio-grande: 24px;
+  --radio-extra: 32px;
+  --radio-pildora: 999px;
+
+  /* Sombras suaves, tintadas en tinta cálida */
+  --sombra-chica: 0 1px 2px rgb(20 20 19 / 6%), 0 2px 8px rgb(20 20 19 / 4%);
+  --sombra-mediana: 0 6px 20px rgb(20 20 19 / 8%);
+  --sombra-grande: 0 18px 48px rgb(20 20 19 / 14%);
+
+  --borde: 1.5px solid var(--color-avena);
+
+  /* Layout */
+  --contenedor-max: 1200px;
+  --margen-lateral: clamp(1rem, 4vw, 2rem);
+  --alto-encabezado: 68px;
+
+  /* Movimiento */
+  --suavizado: cubic-bezier(0.22, 1, 0.36, 1);
+  --transicion: 180ms var(--suavizado);
+
+  /* Capas */
+  --z-encabezado: 50;
+  --z-panel: 100;
+}
+
+@media (max-width: 560px) {
+  :root {
+    --margen-lateral: 0.85rem;
+    --espacio-6: 1.5rem;
+    --espacio-7: 2rem;
+    --espacio-8: 3rem;
+    --espacio-9: 4rem;
+  }
+}

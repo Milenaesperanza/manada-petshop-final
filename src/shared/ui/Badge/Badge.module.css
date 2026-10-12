@@ -1,0 +1,42 @@
+.insignia {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-1);
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--radio-pildora);
+  font-family: var(--fuente-titulos);
+  font-size: var(--texto-minimo);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.neutro {
+  background: var(--color-avena);
+  color: var(--color-pizarra);
+}
+
+.arcilla {
+  background: var(--color-arcilla-suave);
+  color: var(--color-arcilla-oscuro);
+}
+
+.cielo {
+  background: var(--color-cielo-suave);
+  color: var(--color-cielo-oscuro);
+}
+
+.oliva {
+  background: var(--color-oliva-suave);
+  color: var(--color-oliva-oscuro);
+}
+
+.kraft {
+  background: var(--color-kraft-suave);
+  color: var(--color-kraft);
+}
+
+.peligro {
+  background: var(--color-peligro-suave);
+  color: var(--color-peligro);
+}

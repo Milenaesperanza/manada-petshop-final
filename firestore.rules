@@ -1,0 +1,42 @@
+rules_version = '2';
+
+// Reglas sugeridas. Publicalas desde Firebase Console → Firestore → Reglas
+// (o con `firebase deploy --only firestore:rules`).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Catálogo: lectura pública. Escritura sólo desde la consola / Admin SDK.
+    match /productos/{productoId} {
+      allow read: if true;
+      // El checkout sólo puede descontar stock, nunca modificar otros campos.
+      allow update: if request.auth != null
+                    && request.resource.data.stock is number
+                    && resource.data.stock is number
+                    && request.resource.data.stock >= 0
+                    && request.resource.data.stock < resource.data.stock
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stock']);
+      allow create, delete: if false;
+    }
+
+    // Categorías del menú y del catálogo: lectura pública.
+    match /categorias/{categoriaId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Animales que se muestran como categorías principales en el header.
+    match /animal/{animalId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Pedidos: cada usuario crea y lee únicamente los suyos.
+    match /orders/{pedidoId} {
+      allow create: if request.auth != null
+                    && request.resource.data.usuarioId == request.auth.uid;
+      allow read: if request.auth != null
+                  && resource.data.usuarioId == request.auth.uid;
+      allow update, delete: if false;
+    }
+  }
+}

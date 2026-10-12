@@ -1,0 +1,60 @@
+.elemento {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: var(--espacio-4);
+  padding-block: var(--espacio-4);
+  border-bottom: var(--borde);
+}
+
+.miniatura {
+  border-radius: var(--radio-mediano);
+  overflow: hidden;
+  align-self: start;
+}
+
+.detalles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  min-width: 0;
+}
+
+.nombre {
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.nombre:hover {
+  color: var(--color-arcilla-oscuro);
+}
+
+.precio {
+  font-weight: 700;
+  color: var(--color-arcilla-oscuro);
+}
+
+.controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--espacio-2);
+}
+
+.quitar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: var(--texto-grande);
+  color: var(--color-gris);
+  transition:
+    background var(--transicion),
+    color var(--transicion);
+}
+
+.quitar:hover {
+  background: var(--color-peligro-suave);
+  color: var(--color-peligro);
+}

@@ -1,0 +1,10 @@
+.principal {
+  flex: 1;
+  padding-block: var(--espacio-7) 0;
+}
+
+@media (max-width: 560px) {
+  .principal {
+    padding-block: var(--espacio-5) 0;
+  }
+}

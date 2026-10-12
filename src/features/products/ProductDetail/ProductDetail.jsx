@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import aviso from 'react-hot-toast'
 import { PiArrowLeft, PiShoppingBagFill, PiWarningCircle } from 'react-icons/pi'
 import {
@@ -38,6 +38,7 @@ function EsqueletoDetalleProducto() {
 
 export default function DetalleProducto() {
   const { id } = useParams()
+  const ubicacion = useLocation()
   const { datos: producto, cargando, error, recargar } = useProducto(id)
   const { datos: categorias } = useCategorias()
   const { agregarArticulo, abrirCarrito } = useCarrito()
@@ -52,12 +53,14 @@ export default function DetalleProducto() {
   if (!cargando && !error && !producto) return <NoEncontrada />
 
   const categoria = categorias?.find((c) => c.slug === producto?.animal)
+  const rutaDeRetorno = ubicacion.state?.rutaDeRetorno
+    ?? (categoria ? RUTAS.categoria(categoria.slug) : RUTAS.TIENDA)
   const tono = producto?.animal === 'perro' ? 'cielo' : 'arcilla'
   const sinStock = producto?.stock === 0
 
   return (
     <Contenedor>
-      <Link to={categoria ? RUTAS.categoria(categoria.slug) : RUTAS.TIENDA} className={estilos.volver}>
+      <Link to={rutaDeRetorno} className={estilos.volver}>
         <PiArrowLeft aria-hidden="true" /> Volver a la tienda
       </Link>
 

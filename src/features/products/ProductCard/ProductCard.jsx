@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import aviso from 'react-hot-toast'
 import { PiCatFill, PiDogFill, PiPlusBold } from 'react-icons/pi'
 import { Boton, ImagenPerezosa, Insignia } from '@/shared/ui'
@@ -13,6 +13,7 @@ const META_CATEGORIA = {
 }
 
 export function TarjetaProducto({ producto }) {
+  const ubicacion = useLocation()
   const { agregarArticulo, articulos } = useCarrito()
   const { tono, Icono } = META_CATEGORIA[producto.animal] ?? META_CATEGORIA.gato
   const etiquetaCategoria = producto.etiquetaCategoria ?? producto.categoria
@@ -20,6 +21,11 @@ export function TarjetaProducto({ producto }) {
   const articuloEnCarrito = articulos.find((articulo) => articulo.id === producto.id)
   const sinStock = stockDisponible <= 0
   const cantidadMaximaEnCarrito = (articuloEnCarrito?.cantidad ?? 0) >= stockDisponible
+  const rutaDeRetorno = `${ubicacion.pathname}${ubicacion.search}`
+  const destinoDetalle = {
+    pathname: RUTAS.producto(producto.id),
+    state: { rutaDeRetorno },
+  }
 
   const manejarAgregar = () => {
     if (sinStock || cantidadMaximaEnCarrito) {
@@ -32,7 +38,7 @@ export function TarjetaProducto({ producto }) {
 
   return (
     <article className={estilos.tarjeta}>
-      <Link to={RUTAS.producto(producto.id)} className={estilos.multimedia}>
+      <Link to={destinoDetalle} className={estilos.multimedia}>
         <ImagenPerezosa
           origen={producto.imagen}
           textoAlternativo={producto.nombre}
@@ -46,7 +52,7 @@ export function TarjetaProducto({ producto }) {
 
       <div className={estilos.cuerpo}>
         <h3 className={estilos.nombre}>
-          <Link to={RUTAS.producto(producto.id)}>{producto.nombre}</Link>
+          <Link to={destinoDetalle}>{producto.nombre}</Link>
         </h3>
 
         <div className={estilos.pie}>

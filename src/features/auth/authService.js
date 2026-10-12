@@ -8,6 +8,7 @@ import {
   updateProfile,
 } from 'firebase/auth'
 import { autenticacion, firebaseConfigurado } from '@/shared/config/firebase'
+import { guardarPerfil } from './profileService'
 
 const ERRORES_AUTENTICACION = {
   'auth/invalid-credential': 'Email o contraseña incorrectos.',
@@ -47,6 +48,7 @@ export const registrarConEmail = async ({ nombre, email, contrasena }) => {
   if (!firebaseConfigurado) throw new Error('Firebase no está configurado.')
   const { user: usuario } = await createUserWithEmailAndPassword(autenticacion, email, contrasena)
   await updateProfile(usuario, { displayName: nombre })
+  await guardarPerfil(usuario.uid, { nombreCompleto: nombre })
   return aUsuarioApp({ ...usuario, displayName: nombre })
 }
 

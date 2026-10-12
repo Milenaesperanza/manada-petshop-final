@@ -1,20 +1,19 @@
-const CLAVE_PERFILES = 'manada:perfiles'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { baseDeDatos, firebaseConfigurado } from '@/shared/config/firebase'
 
-const leerPerfiles = () => {
-  try {
-    return JSON.parse(localStorage.getItem(CLAVE_PERFILES)) ?? {}
-  } catch {
-    return {}
-  }
+const COLECCION_PERFILES = 'perfiles'
+
+export const obtenerPerfil = async (uid) => {
+  if (!uid || !firebaseConfigurado) return null
+
+  const referencia = doc(baseDeDatos, COLECCION_PERFILES, uid)
+  const resultado = await getDoc(referencia)
+  return resultado.exists() ? resultado.data() : null
 }
 
-export const obtenerPerfil = (uid) => {
-  if (!uid) return null
-  return leerPerfiles()[uid] ?? null
-}
+export const guardarPerfil = async (uid, perfil) => {
+  if (!uid || !firebaseConfigurado) throw new Error('Firebase no está configurado.')
 
-export const guardarPerfil = (uid, perfil) => {
-  if (!uid) return
-  const perfiles = leerPerfiles()
-  localStorage.setItem(CLAVE_PERFILES, JSON.stringify({ ...perfiles, [uid]: perfil }))
+  const referencia = doc(baseDeDatos, COLECCION_PERFILES, uid)
+  await setDoc(referencia, perfil, { merge: true })
 }

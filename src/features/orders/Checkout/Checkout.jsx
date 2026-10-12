@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import aviso from 'react-hot-toast'
 import { PiShoppingBag } from 'react-icons/pi'
@@ -41,19 +41,29 @@ export default function FinalizarCompra() {
   const { articulos, subtotal, establecerCantidad, vaciarCarrito } = useCarrito()
 
   const [valores, setValores] = useState(() => {
-    const perfil = obtenerPerfil(usuario?.uid) ?? {}
     return {
-      nombreCompleto: perfil.nombreCompleto ?? usuario?.nombre ?? '',
-      telefono: perfil.telefono ?? '',
-      direccion: perfil.direccion ?? '',
-      ciudad: perfil.ciudad ?? '',
-      codigoPostal: perfil.codigoPostal ?? '',
-      titularTarjeta: perfil.nombreCompleto ?? usuario?.nombre ?? '',
+      nombreCompleto: usuario?.nombre ?? '',
+      telefono: '',
+      direccion: '',
+      ciudad: '',
+      codigoPostal: '',
+      titularTarjeta: usuario?.nombre ?? '',
       numeroTarjeta: '',
       vencimiento: '',
       codigoSeguridad: '',
     }
   })
+  useEffect(() => {
+    if (!usuario?.uid) return
+    obtenerPerfil(usuario.uid).then((perfil) => {
+      if (!perfil) return
+      setValores((anteriores) => ({
+        ...anteriores,
+        ...perfil,
+        titularTarjeta: perfil.nombreCompleto ?? anteriores.titularTarjeta,
+      }))
+    })
+  }, [usuario?.uid])
   const [errores, setErrores] = useState({})
   const [enviando, setEnviando] = useState(false)
   const [pedidoConfirmado, setPedidoConfirmado] = useState(null)

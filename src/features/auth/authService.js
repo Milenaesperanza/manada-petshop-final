@@ -48,7 +48,13 @@ export const registrarConEmail = async ({ nombre, email, contrasena }) => {
   if (!firebaseConfigurado) throw new Error('Firebase no está configurado.')
   const { user: usuario } = await createUserWithEmailAndPassword(autenticacion, email, contrasena)
   await updateProfile(usuario, { displayName: nombre })
-  await guardarPerfil(usuario.uid, { nombreCompleto: nombre })
+  // El nombre principal ya quedó guardado en Firebase Auth. Si las reglas
+  // de Firestore aún no fueron publicadas, no bloqueamos la creación de cuenta.
+  try {
+    await guardarPerfil(usuario.uid, { nombreCompleto: nombre })
+  } catch (error) {
+    if (error?.code !== 'permission-denied') throw error
+  }
   return aUsuarioApp({ ...usuario, displayName: nombre })
 }
 

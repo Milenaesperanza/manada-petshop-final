@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   cerrarSesion,
   ingresarConEmail,
@@ -22,17 +22,35 @@ export function ProveedorAutenticacion({ children }) {
     [],
   )
 
+  const ingresar = useCallback(async (datos) => {
+    const usuarioNuevo = await ingresarConEmail(datos)
+    setUsuario(usuarioNuevo)
+    return usuarioNuevo
+  }, [])
+
+  const registrar = useCallback(async (datos) => {
+    const usuarioNuevo = await registrarConEmail(datos)
+    setUsuario(usuarioNuevo)
+    return usuarioNuevo
+  }, [])
+
+  const ingresarGoogle = useCallback(async () => {
+    const usuarioNuevo = await ingresarConGoogle()
+    setUsuario(usuarioNuevo)
+    return usuarioNuevo
+  }, [])
+
   const valor = useMemo(
     () => ({
       usuario,
       inicializando,
       estaAutenticado: Boolean(usuario),
-      ingresar: ingresarConEmail,
-      registrar: registrarConEmail,
-      ingresarConGoogle,
+      ingresar,
+      registrar,
+      ingresarConGoogle: ingresarGoogle,
       cerrarSesion,
     }),
-    [usuario, inicializando],
+    [usuario, inicializando, ingresar, registrar, ingresarGoogle],
   )
 
   return <ContextoAutenticacion value={valor}>{children}</ContextoAutenticacion>

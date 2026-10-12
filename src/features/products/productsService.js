@@ -7,6 +7,8 @@ import {
 import { COLECCIONES } from '@/shared/config/constants'
 import { baseDeDatos, firebaseConfigurado } from '@/shared/config/firebase'
 const coleccionProductos = () => collection(baseDeDatos, COLECCIONES.PRODUCTOS)
+const cacheProductos = new Map()
+let productosDestacadosEnCache
 
 const desdeInstantanea = (instantanea) => ({ id: instantanea.id, ...instantanea.data() })
 
@@ -38,7 +40,7 @@ const normalizarProducto = (producto) => {
 }
 
 /** Lista productos. `categoria` ('gatos' | 'perros') es opcional. */
-export const obtenerProductos = async ({ categoria, subcategoria } = {}) => {
+const cargarProductos = async ({ categoria, subcategoria } = {}) => {
   if (!firebaseConfigurado) throw new Error('Firebase no está configurado.')
 
   const resultado = await getDocs(coleccionProductos())
@@ -56,8 +58,18 @@ export const obtenerProductos = async ({ categoria, subcategoria } = {}) => {
   })
 }
 
+export const obtenerProductos = ({ categoria, subcategoria } = {}) => {
+  const clave = `${categoria ?? ''}:${subcategoria ?? ''}`
+  if (!cacheProductos.has(clave)) {
+    const promesa = cargarProductos({ categoria, subcategoria })
+    promesa.catch(() => cacheProductos.delete(clave))
+    cacheProductos.set(clave, promesa)
+  }
+  return cacheProductos.get(clave)
+}
+
 /** Favoritos de la manada: 4 productos por especie, uno por categoría, priorizando stock. */
-export const obtenerProductosDestacados = async () => {
+const cargarProductosDestacados = async () => {
   if (!firebaseConfigurado) throw new Error('Firebase no está configurado.')
   const resultado = await getDocs(coleccionProductos())
   const productos = resultado.docs.map(desdeInstantanea).map(normalizarProducto)
@@ -85,6 +97,16 @@ export const obtenerProductosDestacados = async () => {
       return [...productosDeCategoria].sort((a, b) => b.stock - a.stock)[0]
     })
   })
+}
+
+export const obtenerProductosDestacados = () => {
+  if (!productosDestacadosEnCache) {
+    productosDestacadosEnCache = cargarProductosDestacados()
+    productosDestacadosEnCache.catch(() => {
+      productosDestacadosEnCache = undefined
+    })
+  }
+  return productosDestacadosEnCache
 }
 
 /** Devuelve el producto o `null` si no existe. */

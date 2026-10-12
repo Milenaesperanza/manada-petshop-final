@@ -9,6 +9,9 @@ const normalizarSlugAnimal = (slug) => {
   return valor === 'gatos' ? 'gato' : valor === 'perros' ? 'perro' : valor
 }
 
+let categoriasEnCache
+const subcategoriasEnCache = new Map()
+
 const normalizarCategoria = (instantanea) => {
   const datos = instantanea.data()
   const slugOriginal = String(datos.slug ?? instantanea.id).trim().toLowerCase()
@@ -25,7 +28,7 @@ const normalizarCategoria = (instantanea) => {
 }
 
 /** Lee las categorías públicas que se muestran en el menú y en la tienda. */
-export const obtenerCategorias = async () => {
+const cargarCategorias = async () => {
   if (!firebaseConfigurado) throw new Error('Firebase no está configurado.')
 
   const resultado = await getDocs(collection(baseDeDatos, COLECCIONES.ANIMALES))
@@ -38,7 +41,17 @@ export const obtenerCategorias = async () => {
   return categorias
 }
 
-export const obtenerSubcategorias = async (padre) => {
+export const obtenerCategorias = () => {
+  if (!categoriasEnCache) {
+    categoriasEnCache = cargarCategorias()
+    categoriasEnCache.catch(() => {
+      categoriasEnCache = undefined
+    })
+  }
+  return categoriasEnCache
+}
+
+const cargarSubcategorias = async (padre) => {
   if (!firebaseConfigurado) throw new Error('Firebase no está configurado.')
 
   const resultado = await getDocs(collection(baseDeDatos, COLECCIONES.CATEGORIAS))
@@ -52,4 +65,14 @@ export const obtenerSubcategorias = async (padre) => {
     .sort((a, b) => a.orden - b.orden || a.etiqueta.localeCompare(b.etiqueta, 'es'))
 
   return subcategorias
+}
+
+export const obtenerSubcategorias = (padre) => {
+  const clave = padre ?? ''
+  if (!subcategoriasEnCache.has(clave)) {
+    const promesa = cargarSubcategorias(padre)
+    promesa.catch(() => subcategoriasEnCache.delete(clave))
+    subcategoriasEnCache.set(clave, promesa)
+  }
+  return subcategoriasEnCache.get(clave)
 }
